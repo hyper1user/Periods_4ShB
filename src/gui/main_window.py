@@ -1081,6 +1081,7 @@ class MainWindow(QMainWindow):
             check_for_updates, download_update, run_updater,
             get_current_version, open_release_page, GITHUB_REPO
         )
+        from PySide6.QtWidgets import QApplication
 
         self.status_bar.showMessage("Перевірка оновлень...")
         QApplication.processEvents()

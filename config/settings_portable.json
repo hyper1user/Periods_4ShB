@@ -1,0 +1,21 @@
+{
+  "excel_file_path": "",
+  "output_directory": "output",
+  "templates": {
+    "only100": "templates/Only100.docx",
+    "pilgova": "templates/Pilgova.docx"
+  },
+  "database": {
+    "database_path": "data.db",
+    "sync_on_startup": true,
+    "sync_auto_resolve": false,
+    "use_database_primary": true,
+    "backup_on_sync": true
+  },
+  "ui": {
+    "theme": "military",
+    "window_title": "Облік періодів служби",
+    "window_width": 800,
+    "window_height": 600
+  }
+}

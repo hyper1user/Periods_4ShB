@@ -41,3 +41,4 @@ venv/
 # Temporary files
 *.tmp
 *.temp
+PROGRESS.md

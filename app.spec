@@ -5,16 +5,20 @@ PyInstaller spec file для 1СБ 4ШБ Document Generator
 
 import sys
 from pathlib import Path
+from PyInstaller.utils.hooks import collect_all, collect_submodules
 
 block_cipher = None
 
 # Шлях до проекту
 project_path = Path(SPECPATH)
 
+# Збираємо всі файли openpyxl
+openpyxl_datas, openpyxl_binaries, openpyxl_hiddenimports = collect_all('openpyxl')
+
 a = Analysis(
     ['src/main.py'],
     pathex=[str(project_path)],
-    binaries=[],
+    binaries=openpyxl_binaries,
     datas=[
         # Шаблони документів
         ('templates', 'templates'),
@@ -26,7 +30,7 @@ a = Analysis(
         ('src/gui', 'gui'),
         ('src/core', 'core'),
         ('src/utils', 'utils'),
-    ],
+    ] + openpyxl_datas,
     hiddenimports=[
         # PySide6 модулі
         'PySide6.QtCore',
@@ -60,7 +64,7 @@ a = Analysis(
         'src.gui.passport_data_dialog',
         'src.utils.date_utils',
         'src.utils.validators',
-    ],
+    ] + openpyxl_hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

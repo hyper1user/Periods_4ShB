@@ -249,21 +249,16 @@ class DodatkyReader:
         """Парсить текст періодів в список кортежів (дата_початку, дата_кінця)"""
         periods = []
 
-        # Розбиваємо по ;
-        parts = periods_text.split(";")
+        # Знаходимо всі періоди за допомогою regex (працює незалежно від роздільника)
+        matches = re.findall(r'з\s+(\d{2}\.\d{2}\.\d{4})\s+по\s+(\d{2}\.\d{2}\.\d{4})', periods_text)
 
-        for part in parts:
-            part = part.strip()
-            if "з " in part and " по " in part:
-                # Витягуємо дати
-                match = re.search(r'з\s+(\d{2}\.\d{2}\.\d{4})\s+по\s+(\d{2}\.\d{2}\.\d{4})', part)
-                if match:
-                    try:
-                        start = datetime.strptime(match.group(1), "%d.%m.%Y").date()
-                        end = datetime.strptime(match.group(2), "%d.%m.%Y").date()
-                        periods.append((start, end))
-                    except ValueError:
-                        continue
+        for start_str, end_str in matches:
+            try:
+                start = datetime.strptime(start_str, "%d.%m.%Y").date()
+                end = datetime.strptime(end_str, "%d.%m.%Y").date()
+                periods.append((start, end))
+            except ValueError:
+                continue
 
         return periods
 
